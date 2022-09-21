@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button, Input, Label } from "reactstrap";
 import {AiOutlineMail} from "react-icons/ai"
+import { useRedux } from "../hooks";
+import FormInput from "./FormInput";
+import { unsubscribe } from "../redux/actions";
 
 export const Unsubscribe = () => {
-
+  const { dispatch, useAppSelector } = useRedux();
+  const { isUnsubscribed } = useAppSelector((state) => ({
+    isUnsubscribed: state.Email.isUnsubscribed,
+  }));
 
   const customStylesCountries = {
     control: () => ({
@@ -34,12 +40,18 @@ export const Unsubscribe = () => {
       },
     }),
   };
+
   const resolver = yupResolver(
     yup.object().shape({
-    email: yup.string().required("Required field."),
+      email: yup.string().required("This field is required."),
     })
   );
-  const methods = useForm({resolver });
+
+  const defaultValues: any = {
+    email: "",
+  };
+
+  const methods = useForm({ defaultValues, resolver });
   const {
     handleSubmit,
     register,
@@ -47,7 +59,12 @@ export const Unsubscribe = () => {
     formState: { errors },
   } = methods;
 
-  const unsubscribe = () => {
+
+  const [isDisabled, setIsdisabled] = useState(true)
+
+  const onSubmit = (values:any) => {
+    console.log(values)
+    dispatch(unsubscribe({email: values.email}))
 
   }
 
@@ -57,7 +74,9 @@ export const Unsubscribe = () => {
 
   return (
     <>
-      <section className="bg-gray py-20 w-3/5 rounded drop-shadow-xl">
+    {
+      !isUnsubscribed ?
+<section className="bg-gray py-20 w-3/5 rounded drop-shadow-xl">
       <div className="center-div">
           <span className="font-label-black text-xl md:text-2xl lg:text-2xl">We're sorry to see you go!</span>
           </div>
@@ -70,23 +89,50 @@ export const Unsubscribe = () => {
           <AiOutlineMail size={12}/>
           </div>
           Email Address</Label>
-          <div className=" flex flex-col center-div ">
+          <div className=" flex flex-col ">
+          <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" w-full ">
+          <FormInput
+                  type="email"
+                  name="email"
+                  control={control}
+                  errors={errors}
+                  register={register}
+                  placeholder="Enter your email"
+                  className="form-control font-label font-size-14 "
+                  hidePasswordButton={true}
+                />
+                  </div>
+          <div className=" mt-6 flex flex-row">
                     <Input
-                      type="text"
-                      name="email"
+                      type="checkbox"
+                      name="confirm"
                       register={register}
                       errors={errors}
                       control={control}
-                      className="form-control font-timeline-form font-label"
+                      className=""
+                      onClick={() => setIsdisabled(!isDisabled)}
                     />
+                    <span className="ml-2 font-label-black font-size-12">I am aware that I will not receive any updates from Konzortia anymore.</span>
                   </div>
-            <Button className="btn mt-10 font-label px-20 flex center-div md:each-wrap lg:each-wrap w-full md:w-8/12 lg:w-8/12 font-size-14" onClick={unsubscribe}>
+                  <div className="center-div flex">
+            <button                   type="submit" disabled={isDisabled} className="btn mt-10 font-label px-20  md:each-wrap lg:each-wrap w-full md:w-4/12 lg:w-4/12 font-size-14" >
               UNSUBSCRIBE
-            </Button>
+            </button>
+            </div>
+            </form>
           </div>
         </div>
       </section>
+      :
+      <section className="bg-gray py-20 w-3/5 rounded drop-shadow-xl">
+      <div className="center-div">
+          <span className="font-label-black text-xl md:text-2xl lg:text-2xl">Email address unsubscribed!</span>
+          </div>
+      </section>
+    }
+
+      
     </>
   );
 };

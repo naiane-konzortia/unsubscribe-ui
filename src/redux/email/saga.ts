@@ -9,9 +9,9 @@ import {
 
 import {
   sendEmail as sendEmailApi,
+  unsubscribe as unsubscribeApi
  } from "../../services";
 
- const myDomain = process.env.REACT_APP_PUBLIC_DOMAIN;
 
 
 //Include Both Helper File with needed methods
@@ -33,14 +33,35 @@ function* sendEmail({ payload:  params  }: any) {
   }
 }
 
+function* unsubscribe({ payload:  params  }: any) {
+  try {
+    const response: Promise<any> = yield call(unsubscribeApi, params);
+    yield put(
+      emailApiResponseSuccess(
+        EmailActionTypes.UNSUBSCRIBE,
+        response
+      )
+    );
+  } catch (error: any) {
+    yield put(
+      emailApiResponseError(EmailActionTypes.UNSUBSCRIBE, error)
+    );
+  }
+}
+
 
 export function* watchSendEmail() {
   yield takeEvery(EmailActionTypes.SEND_EMAIL, sendEmail);
 }
 
+export function* watchUnsubscribe() {
+  yield takeEvery(EmailActionTypes.UNSUBSCRIBE, unsubscribe);
+}
+
 function* sendEmailSaga() {
   yield all([
     fork(watchSendEmail),
+    fork(watchUnsubscribe)
   ]);
 }
 

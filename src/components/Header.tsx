@@ -11,7 +11,7 @@ export default function NavBar() {
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center flex align-items-center place-content-center justify-content-center text-center justify-between py-3 md:py-5 md:block">
-            <a href="javascript:void(0)">
+            <a >
               <img
                 src={Konzortia}
                 alt="user-profile"

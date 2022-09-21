@@ -3,7 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import reducers from "./reducers";
 import rootSaga from "./sagas";
 
-import { EmailActionTypes } from "./email/types";
+import { EmailActionTypes, EmailState } from "./email/types";
 import { PagesState } from "./pages/types";
 
 
@@ -18,7 +18,7 @@ declare global {
 
 export interface ApplicationState {
 
-  EmailSent: EmailActionTypes;
+  Email: EmailState;
   Pages: PagesState;
 
 }

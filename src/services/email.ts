@@ -7,6 +7,12 @@ const sendEmail = (params: any) => {
   return api.create(`${url.SEND_EMAIL}`, params);
 };
 
+const unsubscribe = (params: any) => {
+  return api.create(`${url.API}${url.UNSUBSCRIBE}`, params.data);
+};
+
+
+
 export { 
-    sendEmail
+    sendEmail, unsubscribe
 };

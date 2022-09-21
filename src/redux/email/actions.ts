@@ -25,3 +25,10 @@ export const emailSender = (data: {}) => {
   };
 };
 
+export const unsubscribe = (data: {}) => {
+  return {
+    type: EmailActionTypes.UNSUBSCRIBE,
+    payload: { data },
+  };
+};
+

@@ -1,7 +1,9 @@
 import { EmailActionTypes, EmailState } from "./types";
 
 export const INIT_STATE: EmailState = {
-  isEmailSent:false
+  isEmailSent:false,
+  isUnsubscribed: false,
+  unsubscribed:null
 };
 
 const Email = (state = INIT_STATE, action: any) => {
@@ -12,6 +14,12 @@ const Email = (state = INIT_STATE, action: any) => {
           return {
             ...state,
             isEmailSent: true
+          };
+        case EmailActionTypes.UNSUBSCRIBE:
+          return {
+            ...state,
+            isUnsubscribed: true,
+            unsubscribed:action.payload.data
           };
         default:
           return { ...state };
@@ -24,6 +32,11 @@ const Email = (state = INIT_STATE, action: any) => {
             ...state,
             isEmailSent: false
           };
+          case EmailActionTypes.UNSUBSCRIBE:
+            return {
+              ...state,
+              isUnsubscribed: false,
+            };
         default:
           return { ...state };
       }
