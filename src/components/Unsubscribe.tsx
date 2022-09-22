@@ -116,7 +116,7 @@ export const Unsubscribe = () => {
                     <span className="ml-2 font-label-black font-size-12">I am aware that I will not receive any updates from Konzortia anymore.</span>
                   </div>
                   <div className="center-div flex">
-            <button                   type="submit" disabled={isDisabled} className="btn mt-10 font-label px-20  md:each-wrap lg:each-wrap w-full md:w-4/12 lg:w-4/12 font-size-14" >
+            <button type="submit" disabled={isDisabled} className="btn mt-10 font-label px-20 center-div flex md:each-wrap lg:each-wrap w-full md:w-4/12 lg:w-4/12 font-size-14" >
               UNSUBSCRIBE
             </button>
             </div>
