@@ -11,6 +11,7 @@ import {
   sendEmail as sendEmailApi,
   unsubscribe as unsubscribeApi
  } from "../../services";
+import { showErrorNotification } from "../../helpers/notifications";
 
 
 
@@ -46,6 +47,8 @@ function* unsubscribe({ payload:  params  }: any) {
     yield put(
       emailApiResponseError(EmailActionTypes.UNSUBSCRIBE, error)
     );
+    yield call(showErrorNotification, error);
+
   }
 }
 

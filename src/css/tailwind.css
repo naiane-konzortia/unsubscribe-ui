@@ -451,15 +451,13 @@ width: 100% !important;
 }
 
 .btn {
-  width: 300.64px;
-  height: 45.21px;
-  left: 653.37px;
-  top: 1829.79px;
-  background: #4AABCE;
-  border-radius:5px;
-  color: white;
-  font-family: "Custom-1";
-  letter-spacing: 0.1rem;
+  width: 300.64px !important;
+  height: 45.21px !important;
+  background: #4AABCE !important;
+  border-radius:5px !important;
+  color: white !important;
+  font-family: "Custom-1" !important;
+  letter-spacing: 0.1rem !important;
 }
 
 .btn-yellow {

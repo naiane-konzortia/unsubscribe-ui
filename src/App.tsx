@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useRedux } from "./hooks";
 import './css/tailwind.css';
 import { StartCampaign } from "./components";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<StartCampaign />}></Route>
         </Routes>
+        <ToastContainer />
       </Router>
       </div>
   );
